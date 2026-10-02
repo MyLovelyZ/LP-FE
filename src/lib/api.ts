@@ -1,6 +1,5 @@
-// Alamat API Laravel. Atur lewat VITE_API_URL di file .env (lihat .env.example),
-// bawaannya server `php artisan serve` di komputer sendiri.
-export const API_URL = (import.meta.env.VITE_API_URL ?? "http://localhost:8000/api").replace(/\/+$/, "");
+// Alamat API Laravel. Menggunakan relative /api agar diteruskan lewat proxy Vite secara mulus.
+export const API_URL = (import.meta.env.VITE_API_URL ?? "/api").replace(/\/+$/, "");
 
 const TOKEN_KEY = "admin_token";
 
@@ -88,12 +87,18 @@ export async function apiRequest<T>(path: string, { method = "GET", body, signal
         response = await fetch(`${API_URL}${path}`, { method, headers, body: payload, signal });
     } catch (error) {
         if (signal?.aborted) throw error;
+        console.error("API Request Failed:", { path, url: `${API_URL}${path}`, error });
         throw new ApiError(0, "Tidak dapat terhubung ke server. Periksa koneksi internet Anda lalu coba lagi.");
     }
 
     if (response.status === 204) return undefined as T;
 
-    const data = await response.json().catch(() => null);
+    let data: any = null;
+    try {
+        data = await response.json();
+    } catch (parseError) {
+        console.error("Failed to parse JSON response:", parseError);
+    }
 
     if (!response.ok) {
         if (response.status === 401 && token) unauthorizedListeners.forEach((listener) => listener());

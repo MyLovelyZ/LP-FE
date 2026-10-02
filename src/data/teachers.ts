@@ -1,4 +1,9 @@
 import fotoKepsek from "../assets/images/Kepsek.png";
+import fotoKaprogMM from "../assets/images/majors/mm/kaprog.jpg";
+import fotoKaprogRPL from "../assets/images/majors/rpl/kaprog.jpg";
+import fotoKaprogTKJ from "../assets/images/majors/tkj/kaprog.jpg";
+import fotoKaprogPKM from "../assets/images/majors/pkm/kaprog.jpg";
+import fotoKaprogTOI from "../assets/images/majors/toi/kaprog.jpg";
 
 export type Education = {
     level: string;  // jenjang, contoh: "S1", "S2", "D3"
@@ -224,6 +229,7 @@ export const teachers: Teacher[] = [
         name: "Rizky Pratama, S.Ds.",
         role: "Kepala Program Multimedia",
         major: "MM",
+        image: fotoKaprogMM,
         since: 2018,
         quote: "Desain yang bagus bukan yang paling ramai, tapi yang paling jelas pesannya.",
         bio: [
@@ -251,6 +257,7 @@ export const teachers: Teacher[] = [
         name: "Fajar Nugroho, S.Kom.",
         role: "Kepala Program RPL",
         major: "RPL",
+        image: fotoKaprogRPL,
         since: 2018,
         quote: "Kode yang baik adalah kode yang bisa dibaca orang lain.",
         bio: [
@@ -278,6 +285,7 @@ export const teachers: Teacher[] = [
         name: "Budi Santoso, S.T.",
         role: "Kepala Program TKJ",
         major: "TKJ",
+        image: fotoKaprogTKJ,
         since: 2018,
         quote: "Jaringan yang rapi mencerminkan teknisi yang teliti.",
         bio: [
@@ -304,6 +312,7 @@ export const teachers: Teacher[] = [
         name: "Maya Sari, S.E.",
         role: "Kepala Program PKM",
         major: "PKM",
+        image: fotoKaprogPKM,
         since: 2018,
         quote: "Kepercayaan nasabah dibangun dari ketelitian hal-hal kecil.",
         bio: [
@@ -330,6 +339,7 @@ export const teachers: Teacher[] = [
         name: "Arif Rahman, S.T.",
         role: "Kepala Program TOI",
         major: "TOI",
+        image: fotoKaprogTOI,
         since: 2022,
         quote: "Otomasi bukan menggantikan manusia, tapi membuat kerja lebih aman dan tepat.",
         bio: [
