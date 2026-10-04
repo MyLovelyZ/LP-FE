@@ -24,11 +24,18 @@ export type Paginated<T> = {
     meta: { current_page: number; last_page: number; per_page: number; total: number; from: number | null; to: number | null };
 };
 
-// Token Sanctum panel admin disimpan di localStorage supaya tetap masuk setelah halaman dimuat ulang.
-// try/catch: localStorage bisa diblokir browser (mode privat tertentu)
+// Token panel admin disimpan di localStorage dan cookie supaya tetap masuk setelah halaman dimuat ulang.
+// Sinkronisasi dengan cookie access_token memastikan kecocokan dengan VERIFY_MIDDLEWARE.md
 export function getToken(): string | null {
     try {
-        return localStorage.getItem(TOKEN_KEY);
+        const stored = localStorage.getItem(TOKEN_KEY);
+        if (stored) return stored;
+
+        if (typeof document !== "undefined") {
+            const match = document.cookie.match(/(?:^|;\s*)access_token=([^;]+)/);
+            if (match) return decodeURIComponent(match[1]);
+        }
+        return null;
     } catch {
         return null;
     }
@@ -36,8 +43,17 @@ export function getToken(): string | null {
 
 export function setToken(token: string | null) {
     try {
-        if (token) localStorage.setItem(TOKEN_KEY, token);
-        else localStorage.removeItem(TOKEN_KEY);
+        if (token) {
+            localStorage.setItem(TOKEN_KEY, token);
+            if (typeof document !== "undefined") {
+                document.cookie = `access_token=${encodeURIComponent(token)}; path=/; max-age=86400; SameSite=Lax`;
+            }
+        } else {
+            localStorage.removeItem(TOKEN_KEY);
+            if (typeof document !== "undefined") {
+                document.cookie = "access_token=; path=/; max-age=0; SameSite=Lax";
+            }
+        }
     } catch {
         // Tidak bisa disimpan, admin cukup masuk ulang setelah memuat ulang halaman
     }
@@ -68,10 +84,10 @@ type RequestOptions = {
     signal?: AbortSignal;
 };
 
-// path relatif terhadap API_URL, contoh "/news?limit=6". Token admin hanya dikirim ke endpoint /admin
+// path relatif terhadap API_URL, contoh "/news?limit=6". Token admin dikirim ke endpoint /admin dan /user
 export async function apiRequest<T>(path: string, { method = "GET", body, signal }: RequestOptions = {}): Promise<T> {
     const headers: Record<string, string> = { Accept: "application/json" };
-    const token = path.startsWith("/admin") ? getToken() : null;
+    const token = (path.startsWith("/admin") || path.startsWith("/user")) ? getToken() : null;
     if (token) headers.Authorization = `Bearer ${token}`;
 
     let payload: BodyInit | undefined;
@@ -93,7 +109,7 @@ export async function apiRequest<T>(path: string, { method = "GET", body, signal
 
     if (response.status === 204) return undefined as T;
 
-    let data: any = null;
+    let data: { message?: string; errors?: Record<string, string[]> } | null = null;
     try {
         data = await response.json();
     } catch (parseError) {
@@ -101,11 +117,13 @@ export async function apiRequest<T>(path: string, { method = "GET", body, signal
     }
 
     if (!response.ok) {
-        if (response.status === 401 && token) unauthorizedListeners.forEach((listener) => listener());
+        if (response.status === 401 && token && !path.includes("/login")) {
+            unauthorizedListeners.forEach((listener) => listener());
+        }
 
-        const message = response.status === 422 && data?.message
-            ? data.message
-            : statusMessages[response.status] ?? (response.status === 401 ? "Sesi Anda berakhir. Silakan masuk kembali." : "Terjadi kesalahan pada server. Coba lagi nanti.");
+        const message = data?.message
+            ?? statusMessages[response.status]
+            ?? (response.status === 401 ? "Sesi Anda berakhir. Silakan masuk kembali." : "Terjadi kesalahan pada server. Coba lagi nanti.");
         throw new ApiError(response.status, message, data?.errors ?? {});
     }
 

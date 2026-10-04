@@ -12,7 +12,7 @@ export default function LoginPage() {
     useDocumentTitle("Masuk Administrator");
     const { status, login } = useAuth();
     const location = useLocation();
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [submitting, setSubmitting] = useState(false);
@@ -31,7 +31,7 @@ export default function LoginPage() {
         setMessage(null);
 
         try {
-            await login(email, password);
+            await login(username.trim(), password);
         } catch (error) {
             if (error instanceof ApiError && error.status === 422) setErrors(error.errors);
             else setMessage(error instanceof ApiError ? error.message : "Gagal masuk. Coba lagi.");
@@ -82,17 +82,17 @@ export default function LoginPage() {
                     )}
 
                     <form onSubmit={submit} noValidate className="space-y-4">
-                        <Field label="Alamat Email" htmlFor="email" error={errors.email?.[0]}>
+                        <Field label="Username / ID Pengguna" htmlFor="username" error={errors.username?.[0]}>
                             <input
-                                id="email"
-                                type="email"
+                                id="username"
+                                type="text"
                                 autoComplete="username"
                                 required
                                 autoFocus
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                aria-invalid={errors.email ? true : undefined}
-                                placeholder="admin@sekolah.sch.id"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                aria-invalid={errors.username ? true : undefined}
+                                placeholder="Contoh: admin, kepsek, tu_budi"
                                 className="block w-full rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-xs sm:text-sm text-white placeholder:text-slate-400 transition focus:border-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-400/20"
                             />
                         </Field>

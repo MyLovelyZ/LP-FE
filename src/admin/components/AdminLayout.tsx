@@ -60,8 +60,10 @@ export default function AdminLayout() {
     const pageTitle = getPageTitle(location.pathname);
 
     // Initial for avatar
-    const nameParts = (user?.name ?? "Admin").trim().split(/\s+/);
+    const displayName = user?.nama_lengkap ?? user?.name ?? user?.username ?? "Admin";
+    const nameParts = displayName.trim().split(/\s+/);
     const initials = nameParts.slice(0, 2).map((part) => part.charAt(0).toUpperCase()).join("") || "AD";
+    const roleLabel = (user?.role ?? "ADMIN").replace(/_/g, " ");
 
     // Close slideover drawer on Escape
     useEffect(() => {
@@ -91,11 +93,13 @@ export default function AdminLayout() {
     }, []);
 
     // Close dropdowns on route changes
-    useEffect(() => {
+    const [prevPath, setPrevPath] = useState(location.pathname);
+    if (prevPath !== location.pathname) {
+        setPrevPath(location.pathname);
         setProfileOpen(false);
         setNotifOpen(false);
         setMenuOpen(false);
-    }, [location.pathname]);
+    }
 
     return (
         <div className="min-h-screen flex flex-row bg-[#F8F9FA] text-[#0F172A] font-sans antialiased selection:bg-[#8B1D24] selection:text-white">
@@ -469,9 +473,9 @@ export default function AdminLayout() {
                                 </div>
                                 <div className="hidden sm:block text-left">
                                     <div className="text-xs font-bold text-[#0F172A] leading-tight max-w-[120px] truncate">
-                                        {user?.name ?? "Administrator"}
+                                        {displayName}
                                     </div>
-                                    <div className="text-[10px] text-[#64748B] leading-tight font-medium">ADMINISTRATOR</div>
+                                    <div className="text-[10px] text-[#64748B] leading-tight font-medium uppercase">{roleLabel}</div>
                                 </div>
                                 <AdminIcon name="chevronRight" className="w-3.5 h-3.5 text-slate-400 rotate-90" />
                             </button>
@@ -479,12 +483,12 @@ export default function AdminLayout() {
                             {profileOpen && (
                                 <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl border border-slate-100 shadow-xl z-50 p-2 text-xs animate-fade-up">
                                     <div className="px-3 py-2.5 border-b border-slate-100 mb-1">
-                                        <div className="font-bold text-slate-900 truncate">{user?.name ?? "Administrator"}</div>
+                                        <div className="font-bold text-slate-900 truncate">{displayName}</div>
                                         <div className="text-[10px] text-slate-500 truncate">
-                                            {user?.email ?? "admin@smkpluspelitanusantara.sch.id"}
+                                            {user?.email ?? user?.username ?? "admin"}
                                         </div>
-                                        <span className="inline-block mt-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-100 text-slate-700 tracking-wider">
-                                            ADMINISTRATOR
+                                        <span className="inline-block mt-1 px-1.5 py-0.5 rounded text-[9px] font-bold bg-slate-100 text-slate-700 tracking-wider uppercase">
+                                            {roleLabel}
                                         </span>
                                     </div>
                                     <Link
