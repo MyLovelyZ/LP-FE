@@ -28,6 +28,38 @@ const portalNavItems: { href: string; label: string; icon: AdminIconName }[] = [
     { href: "/fasilitas", label: "Halaman Fasilitas", icon: "building" },
 ];
 
+type DashboardShortcutItem = {
+    label: string;
+    desc: string;
+    href: string;
+    icon: AdminIconName;
+    isCurrent: boolean;
+};
+
+const dashboardShortcutItems: DashboardShortcutItem[] = [
+    {
+        href: "/admin",
+        label: "CMS Portal Utama",
+        desc: "Web & Konten",
+        icon: "globe",
+        isCurrent: true,
+    },
+    {
+        href: "/bkk/admin",
+        label: "Admin BKK",
+        desc: "Bursa Kerja & Karir",
+        icon: "briefcase",
+        isCurrent: false,
+    },
+    {
+        href: "/ppdb/dashboard",
+        label: "Admin PPDB",
+        desc: "Penerimaan Siswa",
+        icon: "graduationCap",
+        isCurrent: false,
+    },
+];
+
 // Helper to determine active page title in the topbar
 function getPageTitle(pathname: string): string {
     if (pathname === "/admin") return "Dashboard Utama";
@@ -198,6 +230,45 @@ export default function AdminLayout() {
                                 <div>
                                     <div className="px-3 mb-2">
                                         <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                            PINTAS DASHBOARD
+                                        </span>
+                                    </div>
+                                    <nav className="space-y-1">
+                                        {dashboardShortcutItems.map((item) =>
+                                            item.isCurrent ? (
+                                                <div
+                                                    key={item.href}
+                                                    className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-[#1E293B] text-white shadow-sm"
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <AdminIcon name={item.icon} className="w-4 h-4 shrink-0 text-white" />
+                                                        <span>{item.label}</span>
+                                                    </div>
+                                                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                                                        Aktif
+                                                    </span>
+                                                </div>
+                                            ) : (
+                                                <a
+                                                    key={item.href}
+                                                    href={item.href}
+                                                    onClick={() => setMenuOpen(false)}
+                                                    className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors group"
+                                                >
+                                                    <div className="flex items-center gap-3">
+                                                        <AdminIcon name={item.icon} className="w-4 h-4 text-slate-500 group-hover:text-slate-700 shrink-0" />
+                                                        <span>{item.label}</span>
+                                                    </div>
+                                                    <AdminIcon name="external" className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 shrink-0" />
+                                                </a>
+                                            )
+                                        )}
+                                    </nav>
+                                </div>
+
+                                <div>
+                                    <div className="px-3 mb-2">
+                                        <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
                                             PENGATURAN
                                         </span>
                                     </div>
@@ -302,7 +373,46 @@ export default function AdminLayout() {
                             </nav>
                         </div>
 
-                        {/* Section 3: Pengaturan */}
+                        {/* Section 3: Pintas Dashboard */}
+                        <div>
+                            <div className="px-3 mb-2">
+                                <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                                    PINTAS DASHBOARD
+                                </span>
+                            </div>
+                            <nav className="space-y-1">
+                                {dashboardShortcutItems.map((item) =>
+                                    item.isCurrent ? (
+                                        <div
+                                            key={item.href}
+                                            className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold bg-[#1E293B] text-white shadow-sm"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <AdminIcon name={item.icon} className="w-4 h-4 shrink-0 text-white" />
+                                                <span>{item.label}</span>
+                                            </div>
+                                            <span className="text-[9px] font-bold px-1.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                                                Aktif
+                                            </span>
+                                        </div>
+                                    ) : (
+                                        <a
+                                            key={item.href}
+                                            href={item.href}
+                                            className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100 hover:text-slate-900 transition-colors group"
+                                        >
+                                            <div className="flex items-center gap-3">
+                                                <AdminIcon name={item.icon} className="w-4 h-4 text-slate-500 group-hover:text-slate-700 shrink-0" />
+                                                <span>{item.label}</span>
+                                            </div>
+                                            <AdminIcon name="external" className="w-3.5 h-3.5 text-slate-400 group-hover:text-slate-600 shrink-0" />
+                                        </a>
+                                    )
+                                )}
+                            </nav>
+                        </div>
+
+                        {/* Section 4: Pengaturan */}
                         <div>
                             <div className="px-3 mb-2">
                                 <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">

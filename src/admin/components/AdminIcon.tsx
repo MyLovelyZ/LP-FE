@@ -67,6 +67,18 @@ const paths = {
             <polyline points="9 12 11 14 15 10" />
         </>
     ),
+    briefcase: (
+        <>
+            <rect width="20" height="14" x="2" y="7" rx="2" ry="2" />
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+        </>
+    ),
+    graduationCap: (
+        <>
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+            <path d="M6 12v5c3 3 9 3 12 0v-5" />
+        </>
+    ),
 };
 
 export type AdminIconName = keyof typeof paths;
