@@ -32,6 +32,7 @@ const mainLinks: MenuLink[] = [
     { label: "Daftar Pengumuman Seleksi", href: `${ppdbLink.href}/pengumuman`, external: true },
     { label: "Cek Status Pendaftar (NISN)", href: `${ppdbLink.href}/cek-status`, external: true },
     { label: "Profil Sekolah Resmi", href: "https://smkpluspnb.sch.id" },
+    { label: "Login Admin", href: "/login" },
 ];
 
 // TODO: isi dengan URL aplikasi siswa
@@ -176,8 +177,12 @@ export default function Footer() {
                             loading="lazy"
                         />
 
-                        <p className="pt-2 text-[11px] sm:text-xs font-medium text-brand-ink/60">
-                            Copyright &copy; {new Date().getFullYear()} All right reserved | PENUS
+                        <p className="pt-2 text-[11px] sm:text-xs font-medium text-brand-ink/60 flex items-center gap-2 flex-wrap">
+                            <span>Copyright &copy; {new Date().getFullYear()} All right reserved | PENUS</span>
+                            <span>&bull;</span>
+                            <Link to="/login" className="transition-colors hover:text-brand-darkred hover:underline">
+                                Login Admin
+                            </Link>
                         </p>
                     </div>
 

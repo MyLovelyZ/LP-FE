@@ -76,7 +76,19 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         });
 
         const token = loginRes.access_token;
-        setToken(token);
+        setToken(token, loginRes.expires_in);
+
+        // Ekstraksi payload JWT untuk data sesi
+        let jwtUser: Partial<AdminUser> | null = null;
+        try {
+            const parts = token.split(".");
+            if (parts.length === 3) {
+                const payloadJson = atob(parts[1].replace(/-/g, "+").replace(/_/g, "/"));
+                jwtUser = JSON.parse(payloadJson);
+            }
+        } catch {
+            // Abaikan kesalahan pembacaan payload JWT
+        }
 
         try {
             // 2. Verifikasi token dan peroleh data profil pengguna
@@ -100,6 +112,38 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
             setUser({ ...userData, name: userData.nama_lengkap || userData.username });
             setStatus("authenticated");
         } catch (error) {
+            if (error instanceof ApiError && (error.status === 401 || error.status === 403)) {
+                setToken(null);
+                setUser(null);
+                setStatus("guest");
+                throw error;
+            }
+
+            // Fallback: jika verify tidak terhubung namun JWT memiliki role admin
+            if (jwtUser && jwtUser.role) {
+                const role = String(jwtUser.role).toUpperCase();
+                if (!ALLOWED_ADMIN_ROLES.includes(role)) {
+                    setToken(null);
+                    setUser(null);
+                    setStatus("guest");
+                    throw new ApiError(
+                        403,
+                        `Akses ditolak: role ${jwtUser.role} tidak memiliki izin untuk mengakses panel administrator.`,
+                    );
+                }
+
+                setUser({
+                    id: jwtUser.id ?? "admin",
+                    username: jwtUser.username ?? username,
+                    nama_lengkap: (jwtUser as { nama_lengkap?: string }).nama_lengkap || jwtUser.username || username,
+                    name: (jwtUser as { nama_lengkap?: string }).nama_lengkap || jwtUser.username || username,
+                    role: role,
+                    email: jwtUser.email ?? null,
+                });
+                setStatus("authenticated");
+                return;
+            }
+
             setToken(null);
             setUser(null);
             setStatus("guest");

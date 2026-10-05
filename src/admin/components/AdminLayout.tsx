@@ -223,36 +223,6 @@ export default function AdminLayout() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Bottom Widget Card & Logout */}
-                        <div className="p-4 border-t border-slate-100 space-y-3 bg-white shrink-0">
-                            <div className="rounded-2xl bg-gradient-to-br from-[#1E293B] to-[#0F172A] p-4 text-white shadow-md relative overflow-hidden">
-                                <div className="flex items-center gap-1.5 mb-1.5">
-                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                                    <span className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
-                                        WEBSITE SEKOLAH AKTIF
-                                    </span>
-                                </div>
-                                <div className="text-xs font-bold text-white mb-2.5">Landing Page Publik</div>
-                                <a
-                                    href="/"
-                                    target="_blank"
-                                    rel="noreferrer"
-                                    className="block text-center py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-colors"
-                                >
-                                    Lihat Tampilan Publik ↗
-                                </a>
-                            </div>
-
-                            <button
-                                type="button"
-                                onClick={() => void logout()}
-                                className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer border border-transparent hover:border-red-100"
-                            >
-                                <AdminIcon name="logout" className="w-4 h-4 shrink-0 text-red-600" />
-                                <span>Keluar Sesi Admin</span>
-                            </button>
-                        </div>
                     </div>
                 </div>
             )}
@@ -359,36 +329,6 @@ export default function AdminLayout() {
                             </nav>
                         </div>
                     </div>
-                </div>
-
-                {/* Bottom widget card & logout button */}
-                <div className="p-4 border-t border-slate-100 space-y-3 bg-white shrink-0">
-                    <div className="rounded-2xl bg-gradient-to-br from-[#1E293B] to-[#0F172A] p-4 text-white shadow-md relative overflow-hidden">
-                        <div className="flex items-center gap-1.5 mb-1.5">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-300">
-                                WEBSITE SEKOLAH AKTIF
-                            </span>
-                        </div>
-                        <div className="text-xs font-bold text-white mb-2.5">Landing Page Publik</div>
-                        <a
-                            href="/"
-                            target="_blank"
-                            rel="noreferrer"
-                            className="block text-center py-2 px-3 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-semibold text-white transition-colors"
-                        >
-                            Lihat Tampilan Publik ↗
-                        </a>
-                    </div>
-
-                    <button
-                        type="button"
-                        onClick={() => void logout()}
-                        className="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl text-xs font-bold text-red-600 hover:bg-red-50 hover:text-red-700 transition-colors cursor-pointer border border-transparent hover:border-red-100"
-                    >
-                        <AdminIcon name="logout" className="w-4 h-4 shrink-0 text-red-600" />
-                        <span>Keluar Sesi Admin</span>
-                    </button>
                 </div>
             </aside>
 
