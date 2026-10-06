@@ -13,34 +13,60 @@ import fotoLandingPKM from "../assets/images/majors/pkm/LandingPagePKM.png";
 import fotoLandingMM from "../assets/images/majors/mm/LandingPageMM.png";
 import fotoLandingTOI from "../assets/images/majors/toi/LandingPageTOI.png";
 
-// ini bagian card hero di halaman jurusan
-import fotoHeroCardImageMM from "../assets/images/majors/mm/fotoMM.png";
-import fotoHeroCardImageRPL from "../assets/images/majors/rpl/fotoRPL.png";
-import fotoHeroCardImageTKJ from "../assets/images/majors/tkj/fotoTKJ.png";
-import fotoHeroCardImagePKM from "../assets/images/majors/pkm/fotoPKM.png";
-import fotoHeroCardImageTOI from "../assets/images/majors/toi/fotoTOI.png";
+// MM Photos
+import fotoDevactoMM1 from "../assets/images/majors/mm/devacto-1.jpg";
+import fotoDevactoMM2 from "../assets/images/majors/mm/devacto-2.jpg";
+import fotoDevactoMM3 from "../assets/images/majors/mm/devacto-3.jpg";
+import fotoShowcaseMM1 from "../assets/images/majors/mm/showcase-1.jpg";
+import fotoShowcaseMM2 from "../assets/images/majors/mm/showcase-2.jpg";
+import fotoShowcaseMM3 from "../assets/images/majors/mm/showcase-3.jpg";
+import fotoShowcaseMM4 from "../assets/images/majors/mm/showcase-4.jpg";
+import fotoShowcaseMM5 from "../assets/images/majors/mm/showcase-5.jpg";
+import fotoShowcaseMM6 from "../assets/images/majors/mm/showcase-6.jpg";
 
-// ini bagian foto kegiatan Devacto (nama file harus sama persis, huruf besar-kecilnya juga)
-import fotoDevactoMM1 from "../assets/images/devacto/mm/DKV5.jpeg";
-import fotoDevactoMM2 from "../assets/images/devacto/mm/DKV3.jpg";
-import fotoDevactoMM3 from "../assets/images/devacto/mm/DKV7.jpeg";
-import fotoDevactoRPL1 from "../assets/images/devacto/rpl/RPL2.jpg";
-import fotoDevactoRPL2 from "../assets/images/devacto/rpl/RPL4.jpeg";
-import fotoDevactoRPL3 from "../assets/images/devacto/rpl/RPL5.jpeg";
-import fotoDevactoTKJ1 from "../assets/images/devacto/tkj/TKJ3.jpg";
-import fotoDevactoTKJ2 from "../assets/images/devacto/tkj/TKJ2.jpg";
-import fotoDevactoTKJ3 from "../assets/images/devacto/tkj/TKJ6.jpg";
-import fotoDevactoPKM1 from "../assets/images/devacto/pkm/LPB1.jpg";
-import fotoDevactoPKM2 from "../assets/images/devacto/pkm/LPB3.jpg";
-import fotoDevactoPKM3 from "../assets/images/devacto/pkm/LPB4.jpg";
-import fotoDevactoTOI1 from "../assets/images/devacto/toi/TOI 1.jpeg";
-import fotoDevactoTOI2 from "../assets/images/devacto/toi/TOI 2.jpeg";
-import fotoDevactoTOI3 from "../assets/images/devacto/toi/TOI 3.jpeg";
+// RPL Photos
+import fotoDevactoRPL1 from "../assets/images/majors/rpl/devacto-1.jpg";
+import fotoDevactoRPL2 from "../assets/images/majors/rpl/devacto-2.jpg";
+import fotoDevactoRPL3 from "../assets/images/majors/rpl/devacto-3.jpg";
+import fotoShowcaseRPL1 from "../assets/images/majors/rpl/showcase-1.jpg";
+import fotoShowcaseRPL2 from "../assets/images/majors/rpl/showcase-2.jpg";
+import fotoShowcaseRPL3 from "../assets/images/majors/rpl/showcase-3.jpg";
+import fotoShowcaseRPL4 from "../assets/images/majors/rpl/showcase-4.jpg";
+import fotoShowcaseRPL5 from "../assets/images/majors/rpl/showcase-5.jpg";
+import fotoShowcaseRPL6 from "../assets/images/majors/rpl/showcase-6.jpg";
 
-// ini bagian foto Portofolio Karya Siswa. MASIH GAMBAR CONTOH dari internet (CC0 / Public Domain, sumbernya di
-// assets/images/showcase/sumber-gambar.json), ganti dengan foto karya siswa asli. Dipanggil dengan "<jurusan>/<nama file>"
-const showcasePhotos = import.meta.glob<string>("../assets/images/showcase/*/*.jpg", { eager: true, import: "default" });
-const showcasePhoto = (file: string) => showcasePhotos[`../assets/images/showcase/${file}`];
+// TKJ Photos
+import fotoDevactoTKJ1 from "../assets/images/majors/tkj/devacto-1.jpg";
+import fotoDevactoTKJ2 from "../assets/images/majors/tkj/devacto-2.jpg";
+import fotoDevactoTKJ3 from "../assets/images/majors/tkj/devacto-3.jpg";
+import fotoShowcaseTKJ1 from "../assets/images/majors/tkj/showcase-1.jpg";
+import fotoShowcaseTKJ2 from "../assets/images/majors/tkj/showcase-2.jpg";
+import fotoShowcaseTKJ3 from "../assets/images/majors/tkj/showcase-3.jpg";
+import fotoShowcaseTKJ4 from "../assets/images/majors/tkj/showcase-4.jpg";
+import fotoShowcaseTKJ5 from "../assets/images/majors/tkj/showcase-5.jpg";
+import fotoShowcaseTKJ6 from "../assets/images/majors/tkj/showcase-6.jpg";
+
+// PKM Photos
+import fotoDevactoPKM1 from "../assets/images/majors/pkm/devacto-1.jpg";
+import fotoDevactoPKM2 from "../assets/images/majors/pkm/devacto-2.jpg";
+import fotoDevactoPKM3 from "../assets/images/majors/pkm/devacto-3.jpg";
+import fotoShowcasePKM1 from "../assets/images/majors/pkm/showcase-1.jpg";
+import fotoShowcasePKM2 from "../assets/images/majors/pkm/showcase-2.jpg";
+import fotoShowcasePKM3 from "../assets/images/majors/pkm/showcase-3.jpg";
+import fotoShowcasePKM4 from "../assets/images/majors/pkm/showcase-4.jpg";
+import fotoShowcasePKM5 from "../assets/images/majors/pkm/showcase-5.jpg";
+import fotoShowcasePKM6 from "../assets/images/majors/pkm/showcase-6.jpg";
+
+// TOI Photos
+import fotoDevactoTOI1 from "../assets/images/majors/toi/devacto-1.jpg";
+import fotoDevactoTOI2 from "../assets/images/majors/toi/devacto-2.jpg";
+import fotoDevactoTOI3 from "../assets/images/majors/toi/devacto-3.jpg";
+import fotoShowcaseTOI1 from "../assets/images/majors/toi/showcase-1.jpg";
+import fotoShowcaseTOI2 from "../assets/images/majors/toi/showcase-2.jpg";
+import fotoShowcaseTOI3 from "../assets/images/majors/toi/showcase-3.jpg";
+import fotoShowcaseTOI4 from "../assets/images/majors/toi/showcase-4.jpg";
+import fotoShowcaseTOI5 from "../assets/images/majors/toi/showcase-5.jpg";
+import fotoShowcaseTOI6 from "../assets/images/majors/toi/showcase-6.jpg";
 
 export type MajorTopic = { icon: IconName; title: string; desc: string };
 
@@ -123,9 +149,9 @@ export const majors: Major[] = [
             schedule: "Selasa & Kamis, 15.30–17.00",
             topics: ["Desain Grafis", "Ilustrasi Digital", "Motion Graphic", "Fotografi Produk"],
             photos: [
-                { caption: "Produksi video dengan green screen", image: fotoDevactoMM1 },
-                { caption: "Latihan fotografi & editing di workshop", image: fotoDevactoMM2 },
-                { caption: "Syuting talk show di studio", image: fotoDevactoMM3 },
+                { caption: "Sesi sharing desain grafis", image: fotoDevactoMM1 },
+                { caption: "Praktik motion graphic", image: fotoDevactoMM2 },
+                { caption: "Latihan fotografi produk", image: fotoDevactoMM3 },
             ],
             works: [
                 { title: "Poster Kampanye Sekolah", desc: "Seri poster kampanye kebersihan dan anti-perundungan yang dipasang di lingkungan sekolah." },
@@ -134,12 +160,12 @@ export const majors: Major[] = [
             ],
         },
         showcase: [
-            { title: "Identitas Visual Kedai Kopi", by: "Kelas XII MM 1", category: "Desain Grafis", icon: "pen", image: showcasePhoto("mm/kedai-kopi.jpg") },
-            { title: "Film Pendek \"Pulang\"", by: "Kelas XII MM 2", category: "Video", icon: "video", image: showcasePhoto("mm/film-pendek.jpg") },
-            { title: "Foto Produk UMKM Cibinong", by: "Kelas XI MM 1", category: "Fotografi", icon: "camera", image: showcasePhoto("mm/foto-produk.jpg") },
-            { title: "Animasi Maskot Sekolah", by: "Kelas XI MM 2", category: "Animasi", icon: "play", image: showcasePhoto("mm/animasi-maskot.jpg") },
-            { title: "Poster Hari Pendidikan", by: "Kelas X MM 1", category: "Desain Grafis", icon: "pen", image: showcasePhoto("mm/poster-pendidikan.jpg") },
-            { title: "Podcast Cerita Alumni", by: "Kelas XI MM 1", category: "Audio", icon: "headphones", image: showcasePhoto("mm/podcast-alumni.jpg") },
+            { title: "Identitas Visual Kedai Kopi", by: "Kelas XII MM 1", category: "Desain Grafis", icon: "pen", image: fotoShowcaseMM1 },
+            { title: "Film Pendek \"Pulang\"", by: "Kelas XII MM 2", category: "Video", icon: "video", image: fotoShowcaseMM2 },
+            { title: "Foto Produk UMKM Cibinong", by: "Kelas XI MM 1", category: "Fotografi", icon: "camera", image: fotoShowcaseMM3 },
+            { title: "Animasi Maskot Sekolah", by: "Kelas XI MM 2", category: "Animasi", icon: "play", image: fotoShowcaseMM4 },
+            { title: "Poster Hari Pendidikan", by: "Kelas X MM 1", category: "Desain Grafis", icon: "pen", image: fotoShowcaseMM5 },
+            { title: "Podcast Cerita Alumni", by: "Kelas XI MM 1", category: "Audio", icon: "headphones", image: fotoShowcaseMM6 },
         ],
         careers: ["Desainer Grafis", "Video Editor", "Content Creator", "Fotografer", "Animator", "Motion Designer"],
         image: fotoLandingMM,
@@ -178,8 +204,8 @@ export const majors: Major[] = [
             topics: ["Web Development", "Cyber Security", "UI/UX", "Latihan CTF"],
             photos: [
                 { caption: "Sesi sharing web development", image: fotoDevactoRPL1 },
-                { caption: "Latihan ngoding bareng", image: fotoDevactoRPL2 },
-                { caption: "Diskusi proyek bersama", image: fotoDevactoRPL3 },
+                { caption: "Latihan cyber security", image: fotoDevactoRPL2 },
+                { caption: "Mengerjakan proyek bersama", image: fotoDevactoRPL3 },
             ],
             works: [
                 { title: "Aplikasi Kasir Koperasi", desc: "Aplikasi kasir berbasis web yang kini dipakai untuk transaksi harian koperasi sekolah." },
@@ -188,12 +214,12 @@ export const majors: Major[] = [
             ],
         },
         showcase: [
-            { title: "Aplikasi Kasir Koperasi", by: "Kelas XI RPL 1", category: "Aplikasi Web", icon: "monitor", image: showcasePhoto("rpl/aplikasi-kasir.jpg") },
-            { title: "Aplikasi Presensi QR Code", by: "Kelas XII RPL 1", category: "Aplikasi Mobile", icon: "phone", image: showcasePhoto("rpl/presensi-qr.jpg") },
-            { title: "Portal Lowongan BKK", by: "Kelas XII RPL 2", category: "Aplikasi Web", icon: "monitor", image: showcasePhoto("rpl/portal-bkk.jpg") },
-            { title: "Desain UI Aplikasi Perpustakaan", by: "Kelas XI RPL 2", category: "UI/UX", icon: "pen", image: showcasePhoto("rpl/ui-perpustakaan.jpg") },
-            { title: "Sistem Inventaris Lab", by: "Kelas XII RPL 1", category: "Basis Data", icon: "database", image: showcasePhoto("rpl/inventaris-lab.jpg") },
-            { title: "Game Edukasi Matematika", by: "Kelas X RPL 1", category: "Game", icon: "play", image: showcasePhoto("rpl/game-matematika.jpg") },
+            { title: "Aplikasi Kasir Koperasi", by: "Kelas XI RPL 1", category: "Aplikasi Web", icon: "monitor", image: fotoShowcaseRPL1 },
+            { title: "Aplikasi Presensi QR Code", by: "Kelas XII RPL 1", category: "Aplikasi Mobile", icon: "phone", image: fotoShowcaseRPL2 },
+            { title: "Portal Lowongan BKK", by: "Kelas XII RPL 2", category: "Aplikasi Web", icon: "monitor", image: fotoShowcaseRPL3 },
+            { title: "Desain UI Aplikasi Perpustakaan", by: "Kelas XI RPL 2", category: "UI/UX", icon: "pen", image: fotoShowcaseRPL4 },
+            { title: "Sistem Inventaris Lab", by: "Kelas XII RPL 1", category: "Basis Data", icon: "database", image: fotoShowcaseRPL5 },
+            { title: "Game Edukasi Matematika", by: "Kelas X RPL 1", category: "Game", icon: "play", image: fotoShowcaseRPL6 },
         ],
         careers: ["Web Developer", "Mobile App Developer", "Software Engineer", "UI/UX Designer", "Software Tester"],
         image: fotoLandingRPL,
@@ -231,9 +257,9 @@ export const majors: Major[] = [
             schedule: "Selasa & Jumat, 15.30–17.00",
             topics: ["Routing Mikrotik", "Server Linux", "Keamanan Jaringan", "Fiber Optik"],
             photos: [
-                { caption: "Penyambungan kabel fiber optik", image: fotoDevactoTKJ1 },
-                { caption: "Pengukuran jaringan fiber optik", image: fotoDevactoTKJ2 },
-                { caption: "Merakit & menyolder perangkat", image: fotoDevactoTKJ3 },
+                { caption: "Praktik konfigurasi Mikrotik", image: fotoDevactoTKJ1 },
+                { caption: "Membangun server Linux", image: fotoDevactoTKJ2 },
+                { caption: "Troubleshooting jaringan bersama", image: fotoDevactoTKJ3 },
             ],
             works: [
                 { title: "Wi-Fi Perpustakaan", desc: "Merancang ulang dan memasang titik akses supaya sinyal Wi-Fi merata di seluruh ruang perpustakaan." },
@@ -242,12 +268,12 @@ export const majors: Major[] = [
             ],
         },
         showcase: [
-            { title: "Topologi Jaringan Sekolah", by: "Kelas XII TKJ 1", category: "Jaringan", icon: "network", image: showcasePhoto("tkj/topologi-jaringan.jpg") },
-            { title: "Server Web & DNS Lokal", by: "Kelas XII TKJ 2", category: "Server", icon: "server", image: showcasePhoto("tkj/server-dns.jpg") },
-            { title: "Instalasi Fiber Optik Lab", by: "Kelas XI TKJ 1", category: "Fiber Optik", icon: "zap", image: showcasePhoto("tkj/fiber-optik.jpg") },
-            { title: "Hotspot dengan Voucher Login", by: "Kelas XI TKJ 2", category: "Jaringan", icon: "network", image: showcasePhoto("tkj/hotspot-voucher.jpg") },
-            { title: "Firewall Jaringan Lab", by: "Kelas XII TKJ 1", category: "Keamanan", icon: "shield", image: showcasePhoto("tkj/firewall.jpg") },
-            { title: "Perakitan PC Lab Komputer", by: "Kelas X TKJ 1", category: "Perakitan", icon: "cpu", image: showcasePhoto("tkj/perakitan-pc.jpg") },
+            { title: "Topologi Jaringan Sekolah", by: "Kelas XII TKJ 1", category: "Jaringan", icon: "network", image: fotoShowcaseTKJ1 },
+            { title: "Server Web & DNS Lokal", by: "Kelas XII TKJ 2", category: "Server", icon: "server", image: fotoShowcaseTKJ2 },
+            { title: "Instalasi Fiber Optik Lab", by: "Kelas XI TKJ 1", category: "Fiber Optik", icon: "zap", image: fotoShowcaseTKJ3 },
+            { title: "Hotspot dengan Voucher Login", by: "Kelas XI TKJ 2", category: "Jaringan", icon: "network", image: fotoShowcaseTKJ4 },
+            { title: "Firewall Jaringan Lab", by: "Kelas XII TKJ 1", category: "Keamanan", icon: "shield", image: fotoShowcaseTKJ5 },
+            { title: "Perakitan PC Lab Komputer", by: "Kelas X TKJ 1", category: "Perakitan", icon: "cpu", image: fotoShowcaseTKJ6 },
         ],
         careers: ["Network Administrator", "IT Support", "System Administrator", "Teknisi Komputer", "Network Engineer"],
         image: fotoLandingTKJ,
@@ -285,9 +311,9 @@ export const majors: Major[] = [
             schedule: "Rabu & Kamis, 15.30–17.00",
             topics: ["Akuntansi dengan Aplikasi", "Literasi Keuangan", "Pelayanan Prima", "Public Speaking"],
             photos: [
-                { caption: "Simulasi layanan teller", image: fotoDevactoPKM1 },
-                { caption: "Praktik customer service di Bank Mini", image: fotoDevactoPKM2 },
-                { caption: "Latihan melayani nasabah", image: fotoDevactoPKM3 },
+                { caption: "Praktik akuntansi dengan aplikasi", image: fotoDevactoPKM1 },
+                { caption: "Simulasi layanan nasabah", image: fotoDevactoPKM2 },
+                { caption: "Diskusi literasi keuangan", image: fotoDevactoPKM3 },
             ],
             works: [
                 { title: "Kelas Literasi Keuangan", desc: "Materi menabung dan mengatur uang saku yang dibawakan anggota Devacto untuk siswa kelas X." },
@@ -296,12 +322,12 @@ export const majors: Major[] = [
             ],
         },
         showcase: [
-            { title: "Laporan Keuangan Koperasi", by: "Kelas XII PKM 1", category: "Akuntansi", icon: "calculator", image: showcasePhoto("pkm/laporan-koperasi.jpg") },
-            { title: "Simulasi Layanan Teller", by: "Kelas XI PKM 1", category: "Layanan Nasabah", icon: "user", image: showcasePhoto("pkm/layanan-teller.jpg") },
-            { title: "Rencana Usaha Mikro", by: "Kelas XII PKM 2", category: "Keuangan Mikro", icon: "briefcase", image: showcasePhoto("pkm/rencana-usaha.jpg") },
-            { title: "Kampanye Gemar Menabung", by: "Kelas XI PKM 2", category: "Literasi Keuangan", icon: "bank", image: showcasePhoto("pkm/gemar-menabung.jpg") },
-            { title: "Analisis Kredit UMKM", by: "Kelas XII PKM 1", category: "Keuangan Mikro", icon: "calculator", image: showcasePhoto("pkm/analisis-kredit.jpg") },
-            { title: "Panduan Produk Tabungan", by: "Kelas X PKM 1", category: "Layanan Nasabah", icon: "book", image: showcasePhoto("pkm/produk-tabungan.jpg") },
+            { title: "Laporan Keuangan Koperasi", by: "Kelas XII PKM 1", category: "Akuntansi", icon: "calculator", image: fotoShowcasePKM1 },
+            { title: "Simulasi Layanan Teller", by: "Kelas XI PKM 1", category: "Layanan Nasabah", icon: "user", image: fotoShowcasePKM2 },
+            { title: "Rencana Usaha Mikro", by: "Kelas XII PKM 2", category: "Keuangan Mikro", icon: "briefcase", image: fotoShowcasePKM3 },
+            { title: "Kampanye Gemar Menabung", by: "Kelas XI PKM 2", category: "Literasi Keuangan", icon: "bank", image: fotoShowcasePKM4 },
+            { title: "Analisis Kredit UMKM", by: "Kelas XII PKM 1", category: "Keuangan Mikro", icon: "calculator", image: fotoShowcasePKM5 },
+            { title: "Panduan Produk Tabungan", by: "Kelas X PKM 1", category: "Layanan Nasabah", icon: "book", image: fotoShowcasePKM6 },
         ],
         careers: ["Teller", "Customer Service Bank", "Staf Administrasi Keuangan", "Staf Koperasi", "Staf Akuntansi"],
         image: fotoLandingPKM,
@@ -339,9 +365,9 @@ export const majors: Major[] = [
             schedule: "Senin & Kamis, 15.30–17.00",
             topics: ["Pemrograman PLC", "Arduino", "Internet of Things", "Pneumatik"],
             photos: [
-                { caption: "Praktik di lab otomasi industri", image: fotoDevactoTOI1 },
-                { caption: "Praktik instalasi listrik", image: fotoDevactoTOI2 },
-                { caption: "Merakit & memprogram drone", image: fotoDevactoTOI3 },
+                { caption: "Praktik pemrograman PLC", image: fotoDevactoTOI1 },
+                { caption: "Merakit proyek Arduino", image: fotoDevactoTOI2 },
+                { caption: "Uji coba sistem otomasi", image: fotoDevactoTOI3 },
             ],
             works: [
                 { title: "Robot Penyortir Barang", desc: "Prototipe penyortir otomatis berbasis PLC dengan sensor warna dan pendorong pneumatik." },
@@ -350,12 +376,12 @@ export const majors: Major[] = [
             ],
         },
         showcase: [
-            { title: "Robot Penyortir Barang", by: "Kelas XII TOI 1", category: "PLC", icon: "cpu", image: showcasePhoto("toi/robot-penyortir.jpg") },
-            { title: "Panel Kontrol Motor 3 Fasa", by: "Kelas XI TOI 1", category: "Listrik Industri", icon: "zap", image: showcasePhoto("toi/panel-motor.jpg") },
-            { title: "Smart Home Berbasis IoT", by: "Kelas XII TOI 1", category: "IoT", icon: "phone", image: showcasePhoto("toi/smart-home-iot.jpg") },
-            { title: "Lengan Pneumatik Sederhana", by: "Kelas XI TOI 1", category: "Pneumatik", icon: "factory", image: showcasePhoto("toi/lengan-pneumatik.jpg") },
-            { title: "Lampu Lalu Lintas PLC", by: "Kelas X TOI 1", category: "PLC", icon: "cpu", image: showcasePhoto("toi/lampu-lalu-lintas.jpg") },
-            { title: "Pengukur Suhu Ruang", by: "Kelas X TOI 1", category: "IoT", icon: "monitor", image: showcasePhoto("toi/pengukur-suhu.jpg") },
+            { title: "Robot Penyortir Barang", by: "Kelas XII TOI 1", category: "PLC", icon: "cpu", image: fotoShowcaseTOI1 },
+            { title: "Panel Kontrol Motor 3 Fasa", by: "Kelas XI TOI 1", category: "Listrik Industri", icon: "zap", image: fotoShowcaseTOI2 },
+            { title: "Smart Home Berbasis IoT", by: "Kelas XII TOI 1", category: "IoT", icon: "phone", image: fotoShowcaseTOI3 },
+            { title: "Lengan Pneumatik Sederhana", by: "Kelas XI TOI 1", category: "Pneumatik", icon: "factory", image: fotoShowcaseTOI4 },
+            { title: "Lampu Lalu Lintas PLC", by: "Kelas X TOI 1", category: "PLC", icon: "cpu", image: fotoShowcaseTOI5 },
+            { title: "Pengukur Suhu Ruang", by: "Kelas X TOI 1", category: "IoT", icon: "monitor", image: fotoShowcaseTOI6 },
         ],
         careers: ["Teknisi Otomasi", "Teknisi Listrik Industri", "Operator Mesin Produksi", "Maintenance Engineer"],
         image: fotoLandingTOI,

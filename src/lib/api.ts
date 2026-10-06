@@ -1,6 +1,5 @@
-// Alamat API Laravel. Atur lewat VITE_API_URL di file .env (lihat .env.example),
-// bawaannya server `php artisan serve` di komputer sendiri.
-export const API_URL = (import.meta.env.VITE_API_URL ?? "http://localhost:8000/api").replace(/\/+$/, "");
+// Alamat API Laravel. Menggunakan relative /api agar diteruskan lewat proxy Vite secara mulus.
+export const API_URL = (import.meta.env.VITE_API_URL ?? "/api").replace(/\/+$/, "");
 
 const TOKEN_KEY = "admin_token";
 
@@ -25,22 +24,77 @@ export type Paginated<T> = {
     meta: { current_page: number; last_page: number; per_page: number; total: number; from: number | null; to: number | null };
 };
 
-// Token Sanctum panel admin disimpan di localStorage supaya tetap masuk setelah halaman dimuat ulang.
-// try/catch: localStorage bisa diblokir browser (mode privat tertentu)
+export function parseExpiresInSeconds(expiresIn?: string | number): number {
+    if (typeof expiresIn === "number") return expiresIn > 0 ? expiresIn : 86400;
+    if (!expiresIn) return 86400;
+    const trimmed = String(expiresIn).trim().toLowerCase();
+    if (trimmed.endsWith("d")) {
+        const d = parseFloat(trimmed);
+        return isNaN(d) ? 86400 : Math.round(d * 86400);
+    }
+    if (trimmed.endsWith("h")) {
+        const h = parseFloat(trimmed);
+        return isNaN(h) ? 86400 : Math.round(h * 3600);
+    }
+    if (trimmed.endsWith("m")) {
+        const m = parseFloat(trimmed);
+        return isNaN(m) ? 86400 : Math.round(m * 60);
+    }
+    if (trimmed.endsWith("s")) {
+        const s = parseFloat(trimmed);
+        return isNaN(s) ? 86400 : Math.round(s);
+    }
+    const n = Number(trimmed);
+    return isNaN(n) || n <= 0 ? 86400 : Math.round(n);
+}
+
+// Simpan cookie access_token dengan konfigurasi max-age dan SameSite=Lax
+export function setAuthCookie(token: string, expiresIn?: string | number): void {
+    if (typeof document === "undefined") return;
+    const maxAge = parseExpiresInSeconds(expiresIn);
+    const expiresDate = new Date(Date.now() + maxAge * 1000).toUTCString();
+    document.cookie = `access_token=${encodeURIComponent(token)}; path=/; max-age=${maxAge}; expires=${expiresDate}; SameSite=Lax`;
+}
+
+export function getAuthCookie(): string | null {
+    if (typeof document === "undefined") return null;
+    const match = document.cookie.match(/(?:^|;\s*)access_token=([^;]+)/);
+    return match ? decodeURIComponent(match[1]) : null;
+}
+
+export function removeAuthCookie(): void {
+    if (typeof document === "undefined") return;
+    document.cookie = "access_token=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax";
+}
+
+// Token panel admin disimpan di localStorage dan cookie supaya tetap masuk setelah halaman dimuat ulang.
+// Sinkronisasi dengan cookie access_token memastikan kecocokan dengan VERIFY_MIDDLEWARE.md
 export function getToken(): string | null {
     try {
-        return localStorage.getItem(TOKEN_KEY);
+        const stored = localStorage.getItem(TOKEN_KEY);
+        if (stored) return stored;
+        return getAuthCookie();
     } catch {
-        return null;
+        return getAuthCookie();
     }
 }
 
-export function setToken(token: string | null) {
+export function setToken(token: string | null, expiresIn?: string | number) {
     try {
-        if (token) localStorage.setItem(TOKEN_KEY, token);
-        else localStorage.removeItem(TOKEN_KEY);
+        if (token) {
+            localStorage.setItem(TOKEN_KEY, token);
+            setAuthCookie(token, expiresIn);
+        } else {
+            localStorage.removeItem(TOKEN_KEY);
+            removeAuthCookie();
+        }
     } catch {
-        // Tidak bisa disimpan, admin cukup masuk ulang setelah memuat ulang halaman
+        // Fallback jika localStorage diblokir browser
+        if (token) {
+            setAuthCookie(token, expiresIn);
+        } else {
+            removeAuthCookie();
+        }
     }
 }
 
@@ -69,10 +123,10 @@ type RequestOptions = {
     signal?: AbortSignal;
 };
 
-// path relatif terhadap API_URL, contoh "/news?limit=6". Token admin hanya dikirim ke endpoint /admin
+// path relatif terhadap API_URL, contoh "/news?limit=6". Token admin dikirim ke endpoint /admin dan /user
 export async function apiRequest<T>(path: string, { method = "GET", body, signal }: RequestOptions = {}): Promise<T> {
     const headers: Record<string, string> = { Accept: "application/json" };
-    const token = path.startsWith("/admin") ? getToken() : null;
+    const token = (path.startsWith("/admin") || path.startsWith("/user")) ? getToken() : null;
     if (token) headers.Authorization = `Bearer ${token}`;
 
     let payload: BodyInit | undefined;
@@ -85,22 +139,36 @@ export async function apiRequest<T>(path: string, { method = "GET", body, signal
 
     let response: Response;
     try {
-        response = await fetch(`${API_URL}${path}`, { method, headers, body: payload, signal });
+        response = await fetch(`${API_URL}${path}`, {
+            method,
+            headers,
+            body: payload,
+            signal,
+            credentials: "same-origin",
+        });
     } catch (error) {
         if (signal?.aborted) throw error;
+        console.error("API Request Failed:", { path, url: `${API_URL}${path}`, error });
         throw new ApiError(0, "Tidak dapat terhubung ke server. Periksa koneksi internet Anda lalu coba lagi.");
     }
 
     if (response.status === 204) return undefined as T;
 
-    const data = await response.json().catch(() => null);
+    let data: { message?: string; errors?: Record<string, string[]> } | null = null;
+    try {
+        data = await response.json();
+    } catch (parseError) {
+        console.error("Failed to parse JSON response:", parseError);
+    }
 
     if (!response.ok) {
-        if (response.status === 401 && token) unauthorizedListeners.forEach((listener) => listener());
+        if (response.status === 401 && token && !path.includes("/login")) {
+            unauthorizedListeners.forEach((listener) => listener());
+        }
 
-        const message = response.status === 422 && data?.message
-            ? data.message
-            : statusMessages[response.status] ?? (response.status === 401 ? "Sesi Anda berakhir. Silakan masuk kembali." : "Terjadi kesalahan pada server. Coba lagi nanti.");
+        const message = data?.message
+            ?? statusMessages[response.status]
+            ?? (response.status === 401 ? "Sesi Anda berakhir. Silakan masuk kembali." : "Terjadi kesalahan pada server. Coba lagi nanti.");
         throw new ApiError(response.status, message, data?.errors ?? {});
     }
 

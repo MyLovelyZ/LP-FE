@@ -1,4 +1,9 @@
 import fotoKepsek from "../assets/images/Kepsek.png";
+import fotoKaprogMM from "../assets/images/majors/mm/kaprog.jpg";
+import fotoKaprogRPL from "../assets/images/majors/rpl/kaprog.jpg";
+import fotoKaprogTKJ from "../assets/images/majors/tkj/kaprog.jpg";
+import fotoKaprogPKM from "../assets/images/majors/pkm/kaprog.jpg";
+import fotoKaprogTOI from "../assets/images/majors/toi/kaprog.jpg";
 
 export type Education = {
     level: string;  // jenjang, contoh: "S1", "S2", "D3"
@@ -123,6 +128,7 @@ export const kaprogs: Teacher[] = [
         role: "Kepala Program Multimedia",
         dummy: true,
         major: "MM",
+        image: fotoKaprogMM,
         since: 2018,
         quote: "Desain yang bagus bukan yang paling ramai, tapi yang paling jelas pesannya.",
         bio: [
@@ -139,6 +145,7 @@ export const kaprogs: Teacher[] = [
         role: "Kepala Program RPL",
         dummy: true,
         major: "RPL",
+        image: fotoKaprogRPL,
         since: 2018,
         quote: "Kode yang baik adalah kode yang bisa dibaca orang lain.",
         bio: [
@@ -155,6 +162,7 @@ export const kaprogs: Teacher[] = [
         role: "Kepala Program TKJ",
         dummy: true,
         major: "TKJ",
+        image: fotoKaprogTKJ,
         since: 2018,
         quote: "Jaringan yang rapi mencerminkan teknisi yang teliti.",
         bio: [
@@ -170,6 +178,7 @@ export const kaprogs: Teacher[] = [
         role: "Kepala Program PKM",
         dummy: true,
         major: "PKM",
+        image: fotoKaprogPKM,
         since: 2018,
         quote: "Kepercayaan nasabah dibangun dari ketelitian hal-hal kecil.",
         bio: [
@@ -185,6 +194,7 @@ export const kaprogs: Teacher[] = [
         role: "Kepala Program TOI",
         dummy: true,
         major: "TOI",
+        image: fotoKaprogTOI,
         since: 2022,
         quote: "Otomasi bukan menggantikan manusia, tapi membuat kerja lebih aman dan tepat.",
         bio: [

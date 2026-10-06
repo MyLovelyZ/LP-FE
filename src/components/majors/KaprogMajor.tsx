@@ -14,9 +14,16 @@ export default function KaprogMajor({ major }: { major: Major }) {
         // Sama seperti section sambutan kepala sekolah di beranda
         <section className="relative z-10 bg-brand-softmist text-brand-ink px-6 py-20 md:py-28">
             <div className="max-w-6xl mx-auto grid gap-14 md:gap-16 md:grid-cols-[2fr_3fr] md:items-center">
-                <div className="relative w-full max-w-sm mx-auto md:max-w-none">
-                    {/* Inisial nama selama belum ada foto, sama seperti kartu di halaman Profil Guru */}
-                    <TeacherPhoto teacher={kaprog} alt={kaprog.name} className="w-full aspect-4/5 rounded-card shadow-2xl" initialsSize="text-8xl" />
+                <div className="group relative w-full max-w-sm mx-auto md:max-w-none">
+                    {/* Foto Kaprog dengan hover zoom, shadow halus & label jurusan */}
+                    <div className="relative overflow-hidden rounded-card shadow-2xl transition-all duration-500 ring-1 ring-black/10 group-hover:shadow-brand-ink/20">
+                        <TeacherPhoto teacher={kaprog} alt={kaprog.name} className="w-full aspect-4/5" initialsSize="text-8xl" zoom />
+                        {/* Overlay gradien halus di bagian bawah foto */}
+                        <div className="pointer-events-none absolute inset-0 bg-linear-to-t from-brand-ink/50 via-transparent to-transparent opacity-60 transition-opacity duration-300 group-hover:opacity-80" />
+                        <span className="absolute bottom-4 left-4 rounded-full bg-brand-ink/80 backdrop-blur-xs px-3.5 py-1 text-xs font-semibold tracking-wider text-white shadow-sm uppercase">
+                            Kaprog {major.code}
+                        </span>
+                    </div>
 
                     {/* Garis siku coretan di pojok kanan atas & kiri bawah foto, sama seperti bingkai video di beranda */}
                     <SketchCorner className="-top-5 -right-5 w-16 h-16 md:-top-8 md:-right-8 md:w-28 md:h-28 rotate-90" />

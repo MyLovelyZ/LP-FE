@@ -71,7 +71,7 @@ export default function DevactoWorksMajor({ major }: { major: Major }) {
 
 function PhotoCard({ photo, icon, large }: { photo: DevactoPhoto; icon: IconName; large: boolean }) {
     return(
-        <figure className={`group relative overflow-hidden rounded-card bg-linear-to-br from-brand-signal to-brand-deepred shadow-xl shadow-brand-ink/20 ${
+        <figure className={`group relative overflow-hidden rounded-card bg-brand-ink/5 ring-1 ring-black/10 shadow-xl shadow-brand-ink/15 transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand-ink/25 ${
             large ? "col-span-2 aspect-video" : "aspect-4/3"
         }`}>
             {photo.image ? (
@@ -79,21 +79,25 @@ function PhotoCard({ photo, icon, large }: { photo: DevactoPhoto; icon: IconName
                 <img
                     src={photo.image}
                     alt=""
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-108 group-hover:brightness-105"
                     loading="lazy"
                 />
             ) : (
-                <div className="absolute inset-0 flex items-center justify-center text-white/15 transition-transform duration-500 group-hover:scale-110">
+                <div className="absolute inset-0 flex items-center justify-center bg-linear-to-br from-brand-signal to-brand-deepred text-white/15 transition-transform duration-500 group-hover:scale-110">
                     <Icon name={icon} className={large ? "w-24 h-24 md:w-28 md:h-28" : "w-12 h-12"} />
                 </div>
             )}
 
-            <div className="absolute inset-0 bg-linear-to-t from-brand-ink/80 via-transparent to-transparent" />
+            {/* Overlay gradien gelap untuk memastikan teks caption terbaca sangat jelas */}
+            <div className="absolute inset-0 bg-linear-to-t from-brand-ink/90 via-brand-ink/25 to-transparent transition-opacity duration-300 group-hover:from-brand-ink/95" />
 
-            <figcaption className={`absolute inset-x-0 bottom-0 text-left font-semibold text-white ${
-                large ? "p-4 md:p-5 text-sm" : "p-3 md:p-4 text-xs md:text-sm"
+            {/* Aksen garis highlight halus di atas saat kartu di-hover */}
+            <div className="absolute top-0 inset-x-0 h-0.5 bg-linear-to-r from-transparent via-brand-warmred to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+            <figcaption className={`absolute inset-x-0 bottom-0 text-left font-semibold text-white drop-shadow-sm ${
+                large ? "p-4 md:p-6 text-sm md:text-base" : "p-3 md:p-4 text-xs md:text-sm"
             }`}>
-                {photo.caption}
+                <span className="line-clamp-2">{photo.caption}</span>
             </figcaption>
         </figure>
     )
